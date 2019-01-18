@@ -32,6 +32,8 @@
         ElseIf Browser.DocumentTitle.Equals("BNS Employee Login") Then
             If Browser.ReadyState = WebBrowserReadyState.Interactive Then
                 elements = Browser.Document.All
+                MessageBox.Show(elements.ToString)
+
                 If Browser.StatusText = "Finalizado" Then
                     For Each elemento As HtmlElement In elements
                         If elemento.GetAttribute("name") = "callback_0" Then
@@ -55,9 +57,5 @@
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         Browser.Refresh()
     End Sub
-
-    Public Function startPage()
-
-    End Function
 
 End Class
