@@ -31,9 +31,9 @@
             Application.Exit()
         ElseIf Browser.DocumentTitle.Equals("BNS Employee Login") Then
             If Browser.ReadyState = WebBrowserReadyState.Interactive Then
-                elements = Browser.Document.All
-                MessageBox.Show(elements.ToString)
-
+                Do
+                    elements = Browser.Document.All
+                Loop While 
                 If Browser.StatusText = "Finalizado" Then
                     For Each elemento As HtmlElement In elements
                         If elemento.GetAttribute("name") = "callback_0" Then
