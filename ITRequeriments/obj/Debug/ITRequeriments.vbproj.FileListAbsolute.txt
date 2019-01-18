@@ -1,0 +1,24 @@
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\bin\Debug\ITRequeriments.exe.config
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\bin\Debug\ITRequeriments.exe
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\bin\Debug\ITRequeriments.pdb
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\bin\Debug\ITRequeriments.xml
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.vbprojResolveAssemblyReference.cache
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.Resources.resources
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.vbproj.GenerateResource.Cache
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.exe
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.xml
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.pdb
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.Home.resources
+C:\Users\s5145837\AppData\Local\Temporary Projects\ITRequeriments\obj\Debug\ITRequeriments.Page.resources
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\bin\Debug\ITRequeriments.exe.config
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.exe
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.xml
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.pdb
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\bin\Debug\ITRequeriments.exe
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\bin\Debug\ITRequeriments.pdb
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\bin\Debug\ITRequeriments.xml
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.vbprojResolveAssemblyReference.cache
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.Home.resources
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.Resources.resources
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.Page.resources
+C:\Users\s5145837\Documents\Visual Studio 2015\Projects\ITRequeriments\ITRequeriments\obj\Debug\ITRequeriments.vbproj.GenerateResource.Cache
