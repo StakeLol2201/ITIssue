@@ -19,26 +19,42 @@
     End Sub
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
-        '   elements = Browser.Document.All
-        'For Each elemento As HtmlElement In elements
-        'If elemento.GetAttribute("name") = "callback_0" Then
-        '           elemento.SetAttribute("value", "s5145837")
-        'End If
-        'If elemento.GetAttribute("name") = "callback_1" Then
-        '           elemento.SetAttribute("value", "abcd.1234")
-        'End If
-        'If elemento.GetAttribute("name") = "callback_2" Then
-        '           elemento.InvokeMember("click")
-        'End If
-        'Next
+        elements = Browser.Document.All
+        For Each elemento As HtmlElement In elements
+            If elemento.GetAttribute("name") = "callback_0" Then
+                elemento.SetAttribute("value", "s5145837")
+            End If
+            If elemento.GetAttribute("name") = "callback_1" Then
+                elemento.SetAttribute("value", "abcd.1234")
+            End If
+            If elemento.GetAttribute("name") = "callback_2" Then
+                elemento.InvokeMember("click")
+            End If
+        Next
         MessageBox.Show(Browser.ReadyState)
     End Sub
 
-    'Private Sub Browser_DocumentCompleted(sender As Object, e As EventArgs) Handles Browser.Navigated
-    'If Browser.StatusText = "Loaded" Then
-    '       MessageBox.Show("La pagina cargó")
-    'End If
-    'End Sub
+    Private Sub Browser_DocumentCompleted(sender As Object, e As EventArgs) Handles Browser.DocumentCompleted
+        'If Browser.StatusText = "Loaded" Then
+        '       MessageBox.Show("La pagina cargó")
+        'End If
+        If Browser.ReadyState = WebBrowserReadyState.Complete Then
+            MessageBox.Show(Browser.ReadyState)
+            elements = Browser.Document.All
+            For Each elemento As HtmlElement In elements
+                If elemento.GetAttribute("name") = "callback_0" Then
+                    elemento.SetAttribute("value", "s5145837")
+                End If
+                If elemento.GetAttribute("name") = "callback_1" Then
+                    elemento.SetAttribute("value", "abcd.1234")
+                End If
+                If elemento.GetAttribute("name") = "callback_2" Then
+                    elemento.InvokeMember("click")
+                End If
+            Next
+        End If
+
+    End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         Browser.Refresh()
