@@ -44,19 +44,21 @@
                     setData()
                 ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
                     _timer.Stop()
-
+                    doClick()
+                ElseIf elemento.GetAttribute("name") = "category" Then
+                    _timer.Stop()
+                    doForm()
                 End If
             Next
             cant = cant + 1
         Loop While cant = 20
     End Sub
-    Public Function setTimer()
+    Public Sub setTimer()
         _timer.Interval = 1000
         _timer.Enabled = True
         _timer.Start()
         Application.DoEvents()
-    End Function
-
+    End Sub
     Public Sub setData()
         elements = Browser.Document.All
         For Each elemento As HtmlElement In elements
@@ -78,8 +80,23 @@
         For Each elemento As HtmlElement In elements
             If elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
                 elemento.InvokeMember("Click")
+                setTimer()
             End If
         Next
     End Sub
+    Public Function doForm(sender As Object, e As EventArgs)
+        elements = Browser.Document.All
+        For Each elemento As HtmlElement In elements
+            If elemento.GetAttribute("class") = "select2-input" _
+                And elemento.GetAttribute("id") = "s2id_autogen7_search" Then
+                elemento.SetAttribute("value", "Software")
+                SendKeys.Send("{ENTER}")
+            End If
+            If elemento.GetAttribute("class") = "select2-input" _
+                And elemento.GetAttribute("id") = "s2id_autogen8_search" Then
+
+            End If
+        Next
+    End Function
 
 End Class
