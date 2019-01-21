@@ -22,11 +22,13 @@ Partial Class Page
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Browser = New System.Windows.Forms.WebBrowser()
         Me.txtUser = New System.Windows.Forms.TextBox()
         Me.txtPass = New System.Windows.Forms.TextBox()
         Me.btnSubmit = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me._timer = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Browser
@@ -70,6 +72,9 @@ Partial Class Page
         Me.btnRefresh.Text = "Recargar"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
+        '_timer
+        '
+        '
         'Page
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -92,4 +97,5 @@ Partial Class Page
     Friend WithEvents txtPass As TextBox
     Friend WithEvents btnSubmit As Button
     Friend WithEvents btnRefresh As Button
+    Friend WithEvents _timer As Timer
 End Class
