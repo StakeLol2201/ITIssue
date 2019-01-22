@@ -32,7 +32,7 @@
         End If
     End Sub
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        elements = Browser.Document.All
+        Browser.Refresh()
     End Sub
     Private Sub _timer_Tick(sender As Object, e As EventArgs) Handles _timer.Tick
         Dim cant As Integer = 0
@@ -45,7 +45,7 @@
                 ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
                     _timer.Stop()
                     doClick()
-                ElseIf elemento.GetAttribute("id") = "s2id_autogen73-label" Then
+                ElseIf elemento.GetAttribute("title").Contains("Click to Preview") Then
                     _timer.Stop()
                     doForm()
                 End If
@@ -85,36 +85,42 @@
     End Sub
     Public Sub doForm()
         elements = Browser.Document.All
+        'Primer Campo
+        SendKeys.Send("{TAB} 5")
+        SendKeys.Send("{ENTER}")
+        Clipboard.SetText(My.Settings.category)
+        SendKeys.Send("^V")
+        thirdTimer()
+        SendKeys.Send("{ENTER}")
+        'Segundo Campo
+        SendKeys.Send("{TAB}")
+        SendKeys.Send("{ENTER}")
+        Clipboard.SetText(My.Settings.subCategory)
+        SendKeys.Send("^V")
+        thirdTimer()
+        SendKeys.Send("{ENTER}")
+        'Tercer Campo
+        SendKeys.Send("{TAB}")
+        SendKeys.Send("{ENTER}")
+        Clipboard.SetText(My.Settings.whoAffecting)
+        SendKeys.Send("^V")
+        thirdTimer()
+        SendKeys.Send("{ENTER}")
+        'CuartoCampo
+        SendKeys.Send("{TAB}")
+        SendKeys.Send("{ENTER}")
+        Clipboard.SetText(My.Settings.enviroment)
+        SendKeys.Send("^V")
+        thirdTimer()
+        SendKeys.Send("{ENTER}")
         For Each elemento As HtmlElement In elements
-            If elemento.GetAttribute("id") = "s2id_autogen7_search" Then
-                elemento.InvokeMember("click")
-                Clipboard.SetText(My.Settings.category)
-                SendKeys.Send("^V")
-                SendKeys.Send("{ENTER} 2")
-            End If
-            If elemento.GetAttribute("id") = "s2id_autogen8_search" Then
-                elemento.InvokeMember("click")
-                Clipboard.SetText(My.Settings.subCategory)
-                SendKeys.Send("^V")
-                SendKeys.Send("{ENTER} 2")
-            End If
-            If elemento.GetAttribute("id") = "s2id_autogen1_search" Then
-                elemento.InvokeMember("click")
-                Clipboard.SetText(My.Settings.whoAffecting)
-                SendKeys.Send("^V")
-                SendKeys.Send("{ENTER} 2")
-            End If
-            If elemento.GetAttribute("id") = "s2id_autogen2_search" Then
-                elemento.InvokeMember("click")
-                Clipboard.SetText(My.Settings.enviroment)
-                SendKeys.Send("^V")
-                SendKeys.Send("{ENTER} 2")
-            End If
             If elemento.GetAttribute("name") = "short_description" Then
                 elemento.SetAttribute("value", "This is a short description")
+                thirdTimer()
             End If
             If elemento.GetAttribute("name") = "description" Then
                 elemento.SetAttribute("value", "This is a description")
+                thirdTimer()
             End If
             If elemento.GetAttribute("title") = "Add attachment" Then
                 elemento.InvokeMember("click")
@@ -135,9 +141,23 @@
     Private Sub _secondTimer_Tick(sender As Object, e As EventArgs) Handles _secondTimer.Tick
         Dim i As Integer = 0
         Do
+            i = i + 1
         Loop While i = (My.Settings.setTimer / 2)
         Clipboard.SetText(directory)
         _secondTimer.Stop()
         pasteDirectory()
+    End Sub
+    Public Sub thirdTimer()
+        _thirdTimer.Interval = 1000
+        _thirdTimer.Enabled = True
+        _thirdTimer.Start()
+        Application.DoEvents()
+    End Sub
+    Private Sub _thirdTimer_Tick(sender As Object, e As EventArgs) Handles _thirdTimer.Tick
+        Dim i As Integer = 0
+        Do
+            i = i + 1
+        Loop While i = (My.Settings.setTimer / 2)
+        _thirdTimer.Stop()
     End Sub
 End Class
