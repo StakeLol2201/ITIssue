@@ -29,6 +29,7 @@ Partial Class Page
         Me.btnSubmit = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me._timer = New System.Windows.Forms.Timer(Me.components)
+        Me._secondTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Browser
@@ -75,6 +76,9 @@ Partial Class Page
         '_timer
         '
         '
+        '_secondTimer
+        '
+        '
         'Page
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -98,4 +102,5 @@ Partial Class Page
     Friend WithEvents btnSubmit As Button
     Friend WithEvents btnRefresh As Button
     Friend WithEvents _timer As Timer
+    Friend WithEvents _secondTimer As Timer
 End Class

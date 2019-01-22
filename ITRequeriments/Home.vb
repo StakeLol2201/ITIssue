@@ -8,6 +8,7 @@
                 Exit Sub
             Else
                 txtFileDirectory.Text = openFD.FileName
+                My.Settings.fileDirectory = txtFileDirectory.Text
             End If
         Catch ex As Exception
 

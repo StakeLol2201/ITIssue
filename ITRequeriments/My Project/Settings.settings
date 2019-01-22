@@ -1,7 +1,30 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" UseMySettingsClassName="true">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="scotiaID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">s5145837</Value>
+    </Setting>
+    <Setting Name="passID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">abcd.1234</Value>
+    </Setting>
+    <Setting Name="setTimer" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="fileDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="category" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Software</Value>
+    </Setting>
+    <Setting Name="subCategory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Mainframe</Value>
+    </Setting>
+    <Setting Name="whoAffecting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">My Team</Value>
+    </Setting>
+    <Setting Name="enviroment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PROD</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
