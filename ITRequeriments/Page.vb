@@ -2,6 +2,7 @@
     Dim elements As HtmlElementCollection
     Dim hilo As System.Threading.Thread
     Dim directory As String = My.Settings.fileDirectory
+    Private counter As Integer
     Private Sub Page_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Browser.Navigate("http://scotiabank.service-now.com/")
     End Sub
@@ -35,8 +36,7 @@
         Browser.Refresh()
     End Sub
     Private Sub _timer_Tick(sender As Object, e As EventArgs) Handles _timer.Tick
-        Dim cant As Integer = 0
-        Do
+        If counter >= My.Settings.setTimer Then
             elements = Browser.Document.All
             For Each elemento As HtmlElement In elements
                 If elemento.GetAttribute("name") = "callback_0" Then
@@ -50,11 +50,15 @@
                     doForm()
                 End If
             Next
-            cant = cant + 1
-        Loop While cant = My.Settings.setTimer
+            counter = 0
+            _timer.Enabled = False
+        Else
+            counter = counter + 1
+        End If
     End Sub
     Public Sub setTimer()
-        _timer.Interval = 1000
+        counter = 0
+        _timer.Interval = 600
         _timer.Enabled = True
         _timer.Start()
         Application.DoEvents()
@@ -86,78 +90,90 @@
     Public Sub doForm()
         elements = Browser.Document.All
         'Primer Campo
-        SendKeys.Send("{TAB} 5")
-        SendKeys.Send("{ENTER}")
-        Clipboard.SetText(My.Settings.category)
-        SendKeys.Send("^V")
-        thirdTimer()
-        SendKeys.Send("{ENTER}")
-        'Segundo Campo
-        SendKeys.Send("{TAB}")
-        SendKeys.Send("{ENTER}")
-        Clipboard.SetText(My.Settings.subCategory)
-        SendKeys.Send("^V")
-        thirdTimer()
-        SendKeys.Send("{ENTER}")
-        'Tercer Campo
-        SendKeys.Send("{TAB}")
-        SendKeys.Send("{ENTER}")
-        Clipboard.SetText(My.Settings.whoAffecting)
-        SendKeys.Send("^V")
-        thirdTimer()
-        SendKeys.Send("{ENTER}")
-        'CuartoCampo
-        SendKeys.Send("{TAB}")
-        SendKeys.Send("{ENTER}")
-        Clipboard.SetText(My.Settings.enviroment)
-        SendKeys.Send("^V")
-        thirdTimer()
-        SendKeys.Send("{ENTER}")
-        For Each elemento As HtmlElement In elements
-            If elemento.GetAttribute("name") = "short_description" Then
-                elemento.SetAttribute("value", "This is a short description")
-                thirdTimer()
-            End If
-            If elemento.GetAttribute("name") = "description" Then
-                elemento.SetAttribute("value", "This is a description")
-                thirdTimer()
-            End If
-            If elemento.GetAttribute("title") = "Add attachment" Then
-                elemento.InvokeMember("click")
-                secTimer()
-            End If
+        For i As Integer = 0 To 3
+            SendKeys.Send("{TAB}")
         Next
+        'SendKeys.Send("{ENTER}")
+        Clipboard.SetText(My.Settings.category)
+        thirdTimer()
+        SendKeys.SendWait("^v")
+        thirdTimer()
+        SendKeys.SendWait("{ENTER}")
+        SendKeys.SendWait("{ENTER}")
+        'Segundo Campo
+        thirdTimer()
+        SendKeys.SendWait("{TAB}")
+        Clipboard.SetText(My.Settings.subCategory)
+        thirdTimer()
+        SendKeys.SendWait("^v")
+        thirdTimer()
+        SendKeys.SendWait("{ENTER}")
+        SendKeys.SendWait("{ENTER}")
+        'Tercer Campo
+        thirdTimer()
+        SendKeys.SendWait("{TAB}")
+        Clipboard.SetText(My.Settings.whoAffecting)
+        thirdTimer()
+        SendKeys.SendWait("^v")
+        thirdTimer()
+        SendKeys.SendWait("{ENTER}")
+        SendKeys.SendWait("{ENTER}")
+        'CuartoCampo
+        'SendKeys.Send("{TAB}")
+        'SendKeys.Send("{ENTER}")
+        'Clipboard.SetText(My.Settings.enviroment)
+        'SendKeys.Send("^V")
+        'thirdTimer()
+        'SendKeys.Send("{ENTER}")
+        'For Each elemento As HtmlElement In elements
+        'If elemento.GetAttribute("name") = "short_description" Then
+        'elemento.SetAttribute("value", "This is a short description")
+        'thirdTimer()
+        'End If
+        'If elemento.GetAttribute("name") = "description" Then
+        'elemento.SetAttribute("value", "This is a description")
+        'thirdTimer()
+        'End If
+        'If elemento.GetAttribute("title") = "Add attachment" Then
+        'elemento.InvokeMember("click")
+        'secTimer()
+        'End If
+        'Next
     End Sub
     Public Sub pasteDirectory()
         SendKeys.Send("^(V)")
         SendKeys.Send("{ENTER}")
     End Sub
     Public Sub secTimer()
-        _secondTimer.Interval = 1000
+        counter = 0
+        _secondTimer.Interval = 600
         _secondTimer.Enabled = True
         _secondTimer.Start()
         Application.DoEvents()
     End Sub
     Private Sub _secondTimer_Tick(sender As Object, e As EventArgs) Handles _secondTimer.Tick
-        Dim i As Integer = 0
-        Do
-            i = i + 1
-        Loop While i = (My.Settings.setTimer / 2)
-        Clipboard.SetText(directory)
-        _secondTimer.Stop()
-        pasteDirectory()
+        If counter >= (My.Settings.setTimer / 2) Then
+            counter = 0
+            _secondTimer.Enabled = False
+            Clipboard.SetText(directory)
+            pasteDirectory()
+        Else
+            counter = counter + 1
+        End If
     End Sub
     Public Sub thirdTimer()
-        _thirdTimer.Interval = 1000
+        counter = 0
+        _thirdTimer.Interval = 500
         _thirdTimer.Enabled = True
         _thirdTimer.Start()
         Application.DoEvents()
     End Sub
     Private Sub _thirdTimer_Tick(sender As Object, e As EventArgs) Handles _thirdTimer.Tick
-        Dim i As Integer = 0
-        Do
-            i = i + 1
-        Loop While i = (My.Settings.setTimer / 2)
-        _thirdTimer.Stop()
+        If counter >= (My.Settings.setTimer / 4) Then
+            _thirdTimer.Enabled = False
+            counter = 0
+        Else
+            counter = counter + 1
+        End If
     End Sub
 End Class
