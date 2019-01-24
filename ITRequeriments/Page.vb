@@ -1,13 +1,22 @@
-﻿Public Class Page
-    Dim elements As HtmlElementCollection
-    Dim hilo As System.Threading.Thread
-    Dim directory As String = My.Settings.fileDirectory
+﻿Imports System.Timers
+Public Class Page
+    Dim elements As HtmlElementCollection = Nothing
+    Private directory As String = My.Settings.fileDirectory
     Private counter As Integer
+    Private scounter As Integer
+    Private tcounter As Integer
+    Private _firstTimer As New Timer
+    Private _secondTimer As New Timer
+    Private _thirdTimer As New Timer
     Private Sub Page_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Browser.Navigate("http://scotiabank.service-now.com/")
     End Sub
-    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
-        elements = Browser.Document.All
+    Private Sub btnSubmit_Click(sender As Object, e As EventArgs)
+        Try
+            elements = Browser.Document.All
+        Catch ex As InvalidCastException
+
+        End Try
         For Each elemento As HtmlElement In elements
             If elemento.GetAttribute("name") = "callback_0" Then
                 elemento.SetAttribute("value", My.Settings.scotiaID)
@@ -35,33 +44,42 @@
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         Browser.Refresh()
     End Sub
-    Private Sub _timer_Tick(sender As Object, e As EventArgs) Handles _timer.Tick
-        If counter >= My.Settings.setTimer Then
-            elements = Browser.Document.All
-            For Each elemento As HtmlElement In elements
-                If elemento.GetAttribute("name") = "callback_0" Then
-                    _timer.Stop()
-                    setData()
-                ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
-                    _timer.Stop()
-                    doClick()
-                ElseIf elemento.GetAttribute("title").Contains("Click to Preview") Then
-                    _timer.Stop()
-                    doForm()
+    Private Sub _firstTimer_Tick(sender As Object, e As ElapsedEventArgs)
+        If counter >= (My.Settings.setTimer / 2) Then
+            Try
+                elements = Browser.Document.All
+                If elements.Equals(Nothing) Then
+                Else
+                    For Each elemento As HtmlElement In elements
+                        If elemento.GetAttribute("name") = "callback_0" Then
+                            counter = 0
+                            _firstTimer.Enabled = False
+                            setData()
+                        ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
+                            counter = 0
+                            _firstTimer.Enabled = False
+                            doClick()
+                        ElseIf elemento.GetAttribute("id").Contains("s2id_sp_formfield_curr_caller") Then
+                            counter = 0
+                            _firstTimer.Enabled = False
+                            doForm()
+                        End If
+                    Next
                 End If
-            Next
-            counter = 0
-            _timer.Enabled = False
+            Catch ex As InvalidCastException
+            Catch ex2 As NullReferenceException
+            End Try
+
         Else
             counter = counter + 1
         End If
     End Sub
     Public Sub setTimer()
         counter = 0
-        _timer.Interval = 600
-        _timer.Enabled = True
-        _timer.Start()
-        Application.DoEvents()
+        _firstTimer.Interval = 600
+        AddHandler _firstTimer.Elapsed, AddressOf _firstTimer_Tick
+        _firstTimer.AutoReset = True
+        _firstTimer.Enabled = True
     End Sub
     Public Sub setData()
         elements = Browser.Document.All
@@ -89,35 +107,33 @@
     End Sub
     Public Sub doForm()
         elements = Browser.Document.All
+        Dim cnter As Integer = 0
         'Primer Campo
         For i As Integer = 0 To 3
             SendKeys.Send("{TAB}")
         Next
-        'SendKeys.Send("{ENTER}")
+        SendKeys.Send("{ENTER}")
         Clipboard.SetText(My.Settings.category)
+        SendKeys.Send("^v")
         thirdTimer()
-        SendKeys.SendWait("^v")
-        thirdTimer()
-        SendKeys.SendWait("{ENTER}")
-        SendKeys.SendWait("{ENTER}")
         'Segundo Campo
-        thirdTimer()
-        SendKeys.SendWait("{TAB}")
-        Clipboard.SetText(My.Settings.subCategory)
-        thirdTimer()
-        SendKeys.SendWait("^v")
-        thirdTimer()
-        SendKeys.SendWait("{ENTER}")
-        SendKeys.SendWait("{ENTER}")
+        'SendKeys.Send("{ENTER}")
+        'Clipboard.SetText(My.Settings.subCategory)
+        'SendKeys.Send("^v")
+        'thirdTimer()
         'Tercer Campo
-        thirdTimer()
-        SendKeys.SendWait("{TAB}")
-        Clipboard.SetText(My.Settings.whoAffecting)
-        thirdTimer()
-        SendKeys.SendWait("^v")
-        thirdTimer()
-        SendKeys.SendWait("{ENTER}")
-        SendKeys.SendWait("{ENTER}")
+        'SendKeys.Send("{TAB}")
+        'SendKeys.Send("{ENTER}")
+        'Tercer Campo
+        'thirdTimer()
+        'SendKeys.SendWait("{TAB}")
+        'Clipboard.SetText(My.Settings.whoAffecting)
+        'thirdTimer()
+        'SendKeys.SendWait("^v")
+        'thirdTimer()
+        'SendKeys.SendWait("{ENTER}")
+        'thirdTimer()
+        'SendKeys.SendWait("{ENTER}")
         'CuartoCampo
         'SendKeys.Send("{TAB}")
         'SendKeys.Send("{ENTER}")
@@ -141,39 +157,41 @@
         'Next
     End Sub
     Public Sub pasteDirectory()
-        SendKeys.Send("^(V)")
+        SendKeys.Send("^v")
         SendKeys.Send("{ENTER}")
     End Sub
     Public Sub secTimer()
-        counter = 0
+        scounter = 0
         _secondTimer.Interval = 600
+        AddHandler _secondTimer.Elapsed, AddressOf _secondTimer_Tick
         _secondTimer.Enabled = True
-        _secondTimer.Start()
-        Application.DoEvents()
+        _secondTimer.AutoReset = True
     End Sub
-    Private Sub _secondTimer_Tick(sender As Object, e As EventArgs) Handles _secondTimer.Tick
-        If counter >= (My.Settings.setTimer / 2) Then
-            counter = 0
+    Private Sub _secondTimer_Tick(sender As Object, e As ElapsedEventArgs)
+        If scounter >= (My.Settings.setTimer / 2) Then
+            scounter = 0
             _secondTimer.Enabled = False
             Clipboard.SetText(directory)
             pasteDirectory()
         Else
-            counter = counter + 1
+            scounter = scounter + 1
         End If
     End Sub
     Public Sub thirdTimer()
-        counter = 0
-        _thirdTimer.Interval = 500
+        tcounter = 0
+        _thirdTimer.Interval = 600
+        AddHandler _thirdTimer.Elapsed, AddressOf _thirdTimer_Tick
+        _thirdTimer.AutoReset = True
         _thirdTimer.Enabled = True
-        _thirdTimer.Start()
-        Application.DoEvents()
     End Sub
-    Private Sub _thirdTimer_Tick(sender As Object, e As EventArgs) Handles _thirdTimer.Tick
-        If counter >= (My.Settings.setTimer / 4) Then
+    Private Sub _thirdTimer_Tick(sender As Object, e As ElapsedEventArgs)
+        If tcounter >= My.Settings.setTimer Then
+            SendKeys.Send("{ENTER}")
+            SendKeys.Send("{TAB}")
             _thirdTimer.Enabled = False
-            counter = 0
+            tcounter = 0
         Else
-            counter = counter + 1
+            tcounter = tcounter + 1
         End If
     End Sub
 End Class

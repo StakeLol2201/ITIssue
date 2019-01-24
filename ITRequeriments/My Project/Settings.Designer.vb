@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("20")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
         Public Property setTimer() As Integer
             Get
                 Return CType(Me("setTimer"),Integer)
