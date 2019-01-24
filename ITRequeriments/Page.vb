@@ -1,6 +1,7 @@
 ﻿Imports System.Timers
 Public Class Page
     Dim elements As HtmlElementCollection = Nothing
+    Dim elments As HtmlElementCollection
     Private directory As String = My.Settings.fileDirectory
     Private counter As Integer
     Private scounter As Integer
@@ -15,7 +16,6 @@ Public Class Page
         Try
             elements = Browser.Document.All
         Catch ex As InvalidCastException
-
         End Try
         For Each elemento As HtmlElement In elements
             If elemento.GetAttribute("name") = "callback_0" Then
@@ -48,28 +48,26 @@ Public Class Page
         If counter >= (My.Settings.setTimer / 2) Then
             Try
                 elements = Browser.Document.All
-                If elements.Equals(Nothing) Then
-                Else
-                    For Each elemento As HtmlElement In elements
-                        If elemento.GetAttribute("name") = "callback_0" Then
-                            counter = 0
-                            _firstTimer.Enabled = False
-                            setData()
-                        ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
-                            counter = 0
-                            _firstTimer.Enabled = False
-                            doClick()
-                        ElseIf elemento.GetAttribute("id").Contains("s2id_sp_formfield_curr_caller") Then
-                            counter = 0
-                            _firstTimer.Enabled = False
-                            doForm()
-                        End If
-                    Next
-                End If
             Catch ex As InvalidCastException
-            Catch ex2 As NullReferenceException
             End Try
-
+            If elements.Equals(Nothing) Then
+            Else
+                For Each elemento As HtmlElement In elements
+                    If elemento.GetAttribute("name") = "callback_0" Then
+                        counter = 0
+                        _firstTimer.Enabled = False
+                        setData()
+                    ElseIf elemento.GetAttribute("ng-src") = "13bc78e26f99f200a51cb4ecbb3ee44c.iix" Then
+                        counter = 0
+                        _firstTimer.Enabled = False
+                        doClick()
+                    ElseIf elemento.GetAttribute("id").Contains("s2id_sp_formfield_curr_caller") Then
+                        counter = 0
+                        _firstTimer.Enabled = False
+                        doForm()
+                    End If
+                Next
+            End If
         Else
             counter = counter + 1
         End If
