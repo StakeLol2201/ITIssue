@@ -22,8 +22,12 @@ Partial Class Page
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Browser = New System.Windows.Forms.WebBrowser()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me._firstTimer = New System.Windows.Forms.Timer(Me.components)
+        Me._secondTimer = New System.Windows.Forms.Timer(Me.components)
+        Me._thirdTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Browser
@@ -58,4 +62,7 @@ Partial Class Page
 
     Friend WithEvents Browser As WebBrowser
     Friend WithEvents btnRefresh As Button
+    Friend WithEvents _firstTimer As Timer
+    Friend WithEvents _secondTimer As Timer
+    Friend WithEvents _thirdTimer As Timer
 End Class
